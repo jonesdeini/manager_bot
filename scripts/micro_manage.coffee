@@ -18,7 +18,7 @@ module.exports = (robot) ->
   robot.hear /i am working on (\w+-\w+)/i, (msg) ->
     ticket = msg.match[1]
     ticketData = robot.brain.data.manager[ticket] ||= {people: [], updated_at: null }
-    ticketData[people] += msg.message.user.name
+    ticketData[people].push msg.message.user.name
     ticketData[updated_at] = new Date
     msg.reply "GOT IT"
 
