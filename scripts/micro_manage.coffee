@@ -25,7 +25,6 @@ module.exports = (robot) ->
   robot.respond /who is working on (\w+-\w+)/i, (msg) ->
     ticketData = robot.brain.data.manager[msg.match[1]]
     if ticketData
-      for i in ticketData
-        msg.reply ticketData[people[i]]
+      msg.reply ticketData[people[i]] for i in ticketData
     else
       msg.reply "zobar is working on it"
