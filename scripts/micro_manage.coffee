@@ -13,10 +13,18 @@
 #
 
 module.exports = (robot) ->
+  robot.brain.data.manager ||= {}
+
   robot.hear /i am working on \w+-\w+/i, (msg) ->
-    # store it!
+    robot.brain.data.manager
+    ticketData = robot.brain.data.manager[ticket] ||= {people: [], updated_at: null }
+    ticketData[people] += msg.message.user.name
+    ticketData[updated_at] = new Date
     msg.reply "GOT IT"
 
-  robot.respond /who is working on \w+-\w+/i, (msg) ->
-    #query redis brain
-    msg.reply "zobar is working on it"
+  robot.respond /who is working on (\w+-\w+)/i, (msg) ->
+    ticketData = robot.brain.data.manager[message[0]]
+    if ticketData
+      msg.reply ticketData[people]
+    else
+      msg.reply "zobar is working on it"
