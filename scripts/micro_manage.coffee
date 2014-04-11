@@ -17,14 +17,14 @@ module.exports = (robot) ->
 
   robot.hear /i am working on (\w+-\w+)/i, (msg) ->
     ticket = msg.match[1]
-    ticketData = robot.brain.data.manager[ticket] ||= {people: [], updated_at: null }
-    ticketData[people].push msg.message.user.name
-    ticketData[updated_at] = new Date
+    ticketData = robot.brain.data.manager[ticket] ||= { people: [], updated_at: null }
+    ticketData['people'].push msg.message.user.name
+    ticketData['updated_at'] = new Date
     msg.reply "GOT IT"
 
   robot.respond /who is working on (\w+-\w+)/i, (msg) ->
     ticketData = robot.brain.data.manager[msg.match[1]]
     if ticketData
-      msg.reply ticketData[people[i]] for i in ticketData
+      msg.reply ticketData['people'][i] for i in ticketData
     else
       msg.reply "zobar is working on it"
