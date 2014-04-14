@@ -23,9 +23,10 @@ module.exports = (robot) ->
     msg.reply "GOT IT"
 
   robot.respond /who is working on (\w+-\w+)/i, (msg) ->
-    ticketData = robot.brain.data.manager[msg.match[1]]
+    ticketNumber = msg.match[1]
+    ticketData = robot.brain.data.manager[ticketNumber]
     if ticketData
-      people = ticketData['people']
-      msg.reply people
+      people = ticketData['people'][0..1]
+      msg.reply "ticket #{ticketNumber} was last updated by #{people} at #{ticketData['updated_at'][0]}"
     else
-      msg.reply "zobar is working on it"
+      msg.reply "No one has updated that issue yet"
