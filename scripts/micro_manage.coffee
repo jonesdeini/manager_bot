@@ -26,7 +26,8 @@ module.exports = (robot) ->
     ticketNumber = msg.match[1]
     ticketData = robot.brain.data.manager[ticketNumber]
     if ticketData
-      people = ticketData['people'][0..1]
+      numberOfPeople = ticketData['people'].length
+      people = ticketData['people'][(numberOfPeople - 2)..(numberOfPeople - 1)]
       msg.reply "ticket #{ticketNumber} was last updated by #{people} at #{ticketData['updated_at'][0]}"
     else
       msg.reply "No one has updated that issue yet"
