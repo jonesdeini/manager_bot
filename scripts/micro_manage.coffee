@@ -17,7 +17,7 @@ module.exports = (robot) ->
 
   robot.hear /i am working on (\w+-\d+)/i, (msg) ->
     ticket = msg.match[1]
-    ticketData = robot.brain.data.manager[ticket] ||= { people: [], updated_at: null }
+    ticketData = robot.brain.data.manager[ticket] ||= { people: [], updated_at: new Date }
     ticketData['people'].push msg.message.user.name
     ticketData['updated_at'] = new Date
     msg.reply "GOT IT"
@@ -28,6 +28,6 @@ module.exports = (robot) ->
     if ticketData
       numberOfPeople = ticketData['people'].length
       people = ticketData['people'][(numberOfPeople - 2)..(numberOfPeople - 1)]
-      msg.reply "ticket #{ticketNumber} was last updated by #{people} at #{ticketData['updated_at'][0]}"
+      msg.reply "ticket #{ticketNumber} was last updated by #{people} at #{ticketData['updated_at']}"
     else
       msg.reply "No one has updated that issue yet"
