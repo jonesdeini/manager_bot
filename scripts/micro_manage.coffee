@@ -16,14 +16,14 @@ module.exports = (robot) ->
   robot.brain.data.manager ||= {}
 
   robot.hear /i am working on (\w+-\d+)/i, (msg) ->
-    ticket = msg.match[1]
+    ticket = msg.match[1].toUpperCase()
     ticketData = robot.brain.data.manager[ticket] ||= { people: [], updated_at: new Date }
     ticketData['people'].push msg.message.user.name
     ticketData['updated_at'] = new Date
     msg.reply "GOT IT"
 
   robot.respond /who is working on (\w+-\d+)/i, (msg) ->
-    ticketNumber = msg.match[1]
+    ticketNumber = msg.match[1].toUpperCase()
     ticketData = robot.brain.data.manager[ticketNumber]
     if ticketData
       numberOfPeople = ticketData['people'].length
