@@ -20,7 +20,7 @@ module.exports = (robot) ->
     ticketData = robot.brain.data.manager[ticket] ||= { people: [], updated_at: new Date }
     ticketData['people'].push msg.message.user.name
     ticketData['updated_at'] = new Date
-    msg.reply "GOT IT"
+    msg.reply "Excellent! Be well."
 
   robot.respond /who is working on (\w+-\d+)/i, (msg) ->
     ticketNumber = msg.match[1].toUpperCase()
